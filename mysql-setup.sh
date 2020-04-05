@@ -1,0 +1,1 @@
+mysql -uroot < /app/init-data.sql

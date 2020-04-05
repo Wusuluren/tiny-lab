@@ -1,0 +1,1 @@
+docker run -d --name tiny-lab -p 80:80 -p 3306:3306 tiny-lab 
