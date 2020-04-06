@@ -1,10 +1,21 @@
 <?php session_start(); ?>
 <?php
+include("./inc.php");
+
 $username="";
 $password="";
 $website="";
 $action="";
-$con = mysqli_connect('localhost','root','','admin');
+foreach ($_REQUEST as $key => $value) {
+    $$key = $value;
+}
+$actions=array("login"=>1,"logout"=>1,"website"=>1,""=>1);
+if (!array_key_exists($action,$actions)) {
+    include($error404_page);
+    return;
+}
+
+$con = mysqli_connect($db_host,$db_user,$db_passwd,$db_name);
 if (!$con) {
     die(mysqli_error($con));
 }
@@ -25,9 +36,6 @@ password: <input type="text" name="password"><br>
 </form>');
 }
 
-foreach ($_REQUEST as $key => $value) {
-    $$key = $value;
-}
 if ($action == "login") {
     assert($password);
     $sql="select * from admin where username='".$username."' and password='".$password."'";
